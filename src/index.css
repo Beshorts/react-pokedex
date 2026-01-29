@@ -1,0 +1,95 @@
+/** custom google font */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+/** TailwindCSS base import */
+@import "tailwindcss";
+
+
+/** custom TailwinCSS theme
+ * using css variables
+ * custom font Manrope with fallback fonts
+*/
+@theme {
+
+ --font-display: "Manrope", sans-serif;
+
+ /** Typography Scale
+  * font-size and line-weight in rem) 
+*/
+
+--text-h1: 2rem;  /* 32px */
+--leading-h1: 2.5rem; /* 40px */
+
+--text-h3: 1.5rem; /* 24px */
+--leading-h3: 2.25rem; /* 36px */
+
+--text-body-lg: 1.125rem; /* 18px */
+--leading-body-lg: 1.75rem; /* 28px */
+
+--text-body-md: 1rem; /* 16px */
+--leading-body-md: 1.5rem; /* 24px */
+
+--text-body-sm: 0.875rem; /* 14px */
+--leading-body-sm: 1.25rem; /* 20px */
+
+--text-caption: 0.75rem; /* 12px */
+--leading-caption: 1rem; /* 16px */
+
+/* font weights
+ * using default TailwindCSS classes 
+ * 200 - font-extralight
+ * 300 - font-light
+ * 400 - font-normal
+ * 500 - font-medium
+ * 600 - font-semibold
+ * 700 - font-bold
+ * 800 - font-extrabold
+ */
+
+ /* Pokemon Type Colors
+  * add all of Pokemon existing types and not only ones from PDF layout
+*/
+  --color-type-grass: #9bcc50;
+  --color-type-poison: #b97fc9;
+  --color-type-fire: #fd7d24;
+  --color-type-water: #4592c4;
+  --color-type-flying: #3dc7ef;
+  --color-type-normal: #a8a878;
+  --color-type-fighting: #c03028;
+  --color-type-bug: #a8b820;
+  --color-type-ghost: #705898;
+  --color-type-steel: #b8b8d0;
+  --color-type-electric: #f8d030;
+  --color-type-psychic: #f85888;
+  --color-type-ice: #98d8d8;
+  --color-type-dragon: #7038f8;
+  --color-type-dark: #705848;
+  --color-type-fairy: #ee99ac;
+  --color-type-rock: #b8a038;
+  --color-type-ground: #e0c068;
+
+  /* additional colors for PDF design */
+  --color-charcoal-100: #060606;
+  --color-charcoal-10: #ececef;
+  --color-charcoal-5: #f4f4f6;
+}
+
+/** CSS RESET BASE **/
+
+:root {
+
+  color-scheme: light dark;
+
+  /* Improve the visual rendering of fonts on different browsers */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body  {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Manrope", sans-serif;
+
+}
