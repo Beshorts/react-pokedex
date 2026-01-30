@@ -46,32 +46,11 @@
  * 800 - font-extrabold
  */
 
- /* Pokemon Type Colors
-  * add all of Pokemon existing types and not only ones from PDF layout
-*/
-  --color-type-grass: #9bcc50;
-  --color-type-poison: #b97fc9;
-  --color-type-fire: #fd7d24;
-  --color-type-water: #4592c4;
-  --color-type-flying: #3dc7ef;
-  --color-type-normal: #a8a878;
-  --color-type-fighting: #c03028;
-  --color-type-bug: #a8b820;
-  --color-type-ghost: #705898;
-  --color-type-steel: #b8b8d0;
-  --color-type-electric: #f8d030;
-  --color-type-psychic: #f85888;
-  --color-type-ice: #98d8d8;
-  --color-type-dragon: #7038f8;
-  --color-type-dark: #705848;
-  --color-type-fairy: #ee99ac;
-  --color-type-rock: #b8a038;
-  --color-type-ground: #e0c068;
 
   /* additional colors for PDF design */
   --color-charcoal-100: #060606;
-  --color-charcoal-10: #ececef;
-  --color-charcoal-5: #f4f4f6;
+  --color-charcoal-10: #ececef; /* bg nav PokemonList */
+  --color-charcoal-5: #f4f4f6; /* card background color */
 }
 
 /** CSS RESET BASE **/
