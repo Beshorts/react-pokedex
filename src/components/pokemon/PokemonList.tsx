@@ -5,7 +5,8 @@ import type { PokemonData } from "../../types/pokemon";
 export function PokemonList() {
  
   const handlePokemonClick = (pokemon: PokemonData) => {
-    /** TO DO: on click go to  /pokemon/${pokemon.id}` */
+    /** TO DO: on click go to /pokemon/${pokemon.id} */
+    window.location.assign(`/pokemon/${pokemon.id}`);
   };
 
   return (
