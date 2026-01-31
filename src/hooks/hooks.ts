@@ -1,7 +1,15 @@
-import { useContext } from 'react';
-import { fetchPokemonList, fetchPokemon, fetchPokemonSpecies } from '../services/api';
-import { combinePokemonData, extractIdFromUrl } from '../utils/pokemon-helper';
-import { PokemonContext, type PokemonContextValue } from '../context/PokemonContext';
+import { useContext } from "react";
+import {
+  fetchPokemonList,
+  fetchPokemon,
+  fetchPokemonSpecies,
+  fetchWithRetry,
+} from "../services/api";
+import { combinePokemonData, extractIdFromUrl } from "../utils/pokemon-helper";
+import {
+  PokemonContext,
+  type PokemonContextValue,
+} from "../context/PokemonContext";
 
 /**
  * it provides access to Pokemon context
@@ -12,7 +20,7 @@ import { PokemonContext, type PokemonContextValue } from '../context/PokemonCont
 export function usePokemonContext(): PokemonContextValue {
   const context = useContext(PokemonContext);
   if (!context) {
-    throw new Error('usePokemonContext must be used within PokemonProvider!');
+    throw new Error("usePokemonContext must be used within PokemonProvider!");
   }
   return context;
 }
@@ -33,22 +41,110 @@ export function useLoadMorePokemon() {
     const startIndex = currentCount;
     const endIndex = Math.min(startIndex + 20, 151);
 
-    const listResponse = await fetchPokemonList(151);
-    const batch = listResponse.results.slice(startIndex, endIndex);
+    dispatch({ type: "SET_IS_LOADING_MORE", payload: true });
 
-    const newPokemon = await Promise.all(
-      batch.map(async (species) => {
-        const id = extractIdFromUrl(species.url);
-        const pokemon = await fetchPokemon(id);
-        const speciesData = await fetchPokemonSpecies(id);
-        return combinePokemonData(pokemon, speciesData);
-      })
-    );
-    
-    newPokemon.forEach(p => dispatch({ type: 'ADD_POKEMON', payload: p }));
+   try {
+      const listResponse = await fetchPokemonList(151);
+      const batch = listResponse.results.slice(startIndex, endIndex);
+
+      const newPokemon = await Promise.all(
+        batch.map(async (species) => {
+          const id = extractIdFromUrl(species.url);
+          const pokemon = await fetchPokemon(id);
+          const speciesData = await fetchPokemonSpecies(id);
+          return combinePokemonData(pokemon, speciesData);
+        }),
+      );
+
+      newPokemon.forEach((p) => dispatch({ type: "ADD_POKEMON", payload: p }));
+    } catch (error) {
+      console.error("Failed to load more Pokemon:", error);
+    } finally {
+      // 2. Spegniamo lo spinner in ogni caso (successo o errore)
+      dispatch({ type: "SET_IS_LOADING_MORE", payload: false });
+    }
   }
-  
+
   return { loadMore };
 }
 
+/**
+   * Searches for a Pokemon by exact name or ID match.
+   * * The logic follows these steps:
+   * 1. Updates the global search query state to sync with the UI.
+   * 2. Filters existing local data for an immediate match.
+   * 3. If no local match is found, attempts to fetch from the PokeAPI.
+   * 4. Manages a global 'isSearching' state to coordinate loading spinners
+   * across the Search and Grid components.
+   * * query param for search term (Pokemon name or ID).
+  */
 
+export function useSearchPokemon() {
+  const { state, dispatch } = usePokemonContext();
+
+  async function searchPokemon(query: string) {
+    if (!query) {
+      dispatch({ type: "SET_FILTERED_POKEMON", payload: state.allPokemon });
+      dispatch({ type: "SET_SEARCH_QUERY", payload: "" });
+      return;
+    }
+
+    dispatch({ type: 'SET_IS_SEARCHING', payload: true });
+
+    try {
+      const lowerQuery = query.toLowerCase().trim();
+      
+      dispatch({ type: "SET_SEARCH_QUERY", payload: lowerQuery });
+
+      const queryWithoutHash = lowerQuery.replace("#", "");
+
+      const filtered = state.allPokemon.filter((pokemon) => {
+        const pokemonName = pokemon.name.toLowerCase();
+        const pokemonId = pokemon.id.toString();
+        return pokemonName === lowerQuery || pokemonId === queryWithoutHash;
+      });
+
+      const isIdQuery = /^\d+$/.test(queryWithoutHash);
+
+      if (filtered.length === 0) {
+        if (isIdQuery) {
+          const pokemonId = parseInt(queryWithoutHash, 10);
+          if (pokemonId >= 1 && pokemonId <= 151) {
+            try {
+              const [pokemon, speciesData] = await Promise.all([
+                fetchWithRetry(() => fetchPokemon(pokemonId)),
+                fetchWithRetry(() => fetchPokemonSpecies(pokemonId)),
+              ]);
+              const newPokemon = combinePokemonData(pokemon, speciesData);
+              dispatch({ type: "ADD_POKEMON", payload: newPokemon });
+              filtered.push(newPokemon);
+            } catch (e) { console.error(e); }
+          }
+        } else {
+          try {
+            const pokemon = await fetchWithRetry(() => fetchPokemon(lowerQuery));
+            if (pokemon && pokemon.id <= 151) {
+              const speciesData = await fetchWithRetry(() => fetchPokemonSpecies(pokemon.id));
+              const newPokemon = combinePokemonData(pokemon, speciesData);
+              dispatch({ type: "ADD_POKEMON", payload: newPokemon });
+              filtered.push(newPokemon);
+            }
+          } catch (e) { console.error(e); }
+        }
+      }
+
+      dispatch({ type: "SET_FILTERED_POKEMON", payload: filtered });
+
+    } finally {
+      dispatch({ type: 'SET_IS_SEARCHING', payload: false });
+    }
+  }
+
+  function clearSearch() {
+    dispatch({ type: "SET_SEARCH_QUERY", payload: "" });
+    dispatch({ type: "SET_FILTERED_POKEMON", payload: state.allPokemon });
+    dispatch({ type: 'SET_IS_SEARCHING', payload: false });
+  }
+
+  return { searchPokemon, clearSearch };
+}
