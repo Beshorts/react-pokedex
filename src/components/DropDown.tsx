@@ -30,10 +30,10 @@ export const DropDown = ({ options, onSelect, label = "Opzioni" }: DropdownProps
       >
         <span className="font-medium text-gray-700 truncate">{selected}</span>
 
-        <svg 
-          className={`w-8 h-8 cursor-pointer text-black transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
-          viewBox="0 0 24 24" 
-          fill="currentColor" 
+        <svg
+          className={`w-8 h-8 cursor-pointer text-black transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          viewBox="0 0 24 24"
+          fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path d="M12 16L6 10H18L12 16Z" />
@@ -43,11 +43,11 @@ export const DropDown = ({ options, onSelect, label = "Opzioni" }: DropdownProps
       {isOpen && (
         <>
           {/* Overlay invisibile che copre tutto lo schermo: chiude al click fuori */}
-          <div 
-            className="fixed inset-0 z-40 cursor-default" 
-            onClick={close} 
+          <div
+            className="fixed inset-0 z-40 cursor-default"
+            onClick={close}
           />
-          
+
           <div className="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-150">
             <div className="py-1 max-h-60 overflow-y-auto">
               {options.map((option) => (
@@ -56,8 +56,8 @@ export const DropDown = ({ options, onSelect, label = "Opzioni" }: DropdownProps
                   type="button"
                   onClick={() => handleSelect(option)}
                   className={`cursor-pointer block w-full text-left px-4 py-2 text-sm transition-colors
-                    ${selected === option 
-                      ? 'bg-blue-50 text-blue-700 font-semibold' 
+                    ${selected === option
+                      ? 'bg-blue-50 text-blue-700 font-semibold'
                       : 'text-gray-700 hover:bg-charcoal-5'
                     }`}
                 >

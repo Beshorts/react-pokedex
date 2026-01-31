@@ -15,18 +15,24 @@ interface PokemonState {
   allPokemon: PokemonData[];
   filteredPokemon: PokemonData[];
   searchQuery: string;
+  isSearching: boolean;
+  isLoadingMore: boolean;
 }
 
 type PokemonAction =
   | { type: "SET_ALL_POKEMON"; payload: PokemonData[] }
   | { type: "SET_FILTERED_POKEMON"; payload: PokemonData[] }
   | { type: "SET_SEARCH_QUERY"; payload: string }
+  | { type: "SET_IS_SEARCHING"; payload: boolean }
+  | { type: "SET_IS_LOADING_MORE"; payload: boolean }
   | { type: "ADD_POKEMON"; payload: PokemonData };
 
 const initialState: PokemonState = {
   allPokemon: [],
   filteredPokemon: [],
   searchQuery: "",
+  isSearching: false,
+  isLoadingMore: false,
 };
 
 function pokemonReducer(
@@ -53,8 +59,17 @@ function pokemonReducer(
         searchQuery: action.payload,
       };
 
+    case "SET_IS_SEARCHING":
+      return {
+        ...state, isSearching: action.payload
+      };
+
+    case "SET_IS_LOADING_MORE":
+      return {
+        ...state, isLoadingMore: action.payload
+      };
+
     case "ADD_POKEMON": {
-      // Add a single Pokemon (for on-demand fetching)
       const exists = state.allPokemon.some((p) => p.id === action.payload.id);
       if (exists) return state;
 

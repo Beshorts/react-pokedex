@@ -1,4 +1,4 @@
-import DropDown from "../shared/DropDown";
+import DropDown from "../DropDown";
 import { GridIcon } from "../icons/GridIcon";
 import { ListIcon } from "../icons/ListIcon";
 import { SortByIcon } from "../icons/SortByIcon";
@@ -7,7 +7,7 @@ import { MyButton } from "../shared/MyButton";
 export function PokemonGridNav() {
   return (
     <>
-      <nav className="flex justify-end sm:justify-between py-4" aria-label="View options">
+      <nav className="flex justify-end sm:justify-between p-0 py-4 sm:p-4" aria-label="View options">
         <div className="flex gap-2">
           <MyButton className="hidden sm:flex" variant="primary" ariaLabel="Grid view">
             <GridIcon />
@@ -23,7 +23,7 @@ export function PokemonGridNav() {
             options={["Highest number", "Lowest number"]}
           />
         </div>
-        <MyButton className="inline-flex sm:hidden" type="button" variant="secondary" ariaLabel="Sort by">
+        <MyButton className="inline-flex border-none text-charcoal-100 sm:hidden" type="button" variant="secondary" ariaLabel="Sort by">
           <SortByIcon />
         </MyButton>
       </nav>

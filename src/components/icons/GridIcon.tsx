@@ -4,7 +4,7 @@ export function GridIcon() {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      className="size-6"
+      className="size-4"
     >
       <path
         fillRule="evenodd"

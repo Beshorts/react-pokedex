@@ -35,11 +35,11 @@ export function MyButton({
   disabled = false,
   ariaLabel,
 }: ButtonProps) {
-  const baseStyles = 'cursor-pointer items-center gap-2 rounded-md p-4 text-body-md leading-body-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50';
+  const baseStyles = 'cursor-pointer size-10 justify-center items-center  rounded-md px-2 text-body-md leading-body-md font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50';
   
   const variants = {
     primary: 'bg-charcoal-100 text-white hover:opacity-70 focus:ring-blue-500',
-    secondary: 'bg-white border border-charcoal-10 text-charcoal-100 hover:bg-charcoal-10 focus:ring-blue-500',
+    secondary: 'bg-white border border-charcoal-50 text-charcoal-100 hover:bg-charcoal-10 focus:ring-blue-500',
     outlined: 'bg-transparent text-charcoal-100 hover:bg-charcoal-5 focus:ring-blue-500/20',
   };
 
