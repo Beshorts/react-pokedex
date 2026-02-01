@@ -1,6 +1,6 @@
 import type { PokemonListResponse, PokemonApiResponse, PokemonSpeciesApiResponse } from '../types/pokemon';
 
-const BASE_URL = 'https://pokeapi.co/api/v2';
+export const BASE_URL = 'https://pokeapi.co/api/v2';
 
 /**
  * Retrieves a list of Pokemon species with pagination support.
@@ -9,11 +9,11 @@ const BASE_URL = 'https://pokeapi.co/api/v2';
  */
 export async function fetchPokemonList(limit: number = 20): Promise<PokemonListResponse> {
   const response = await fetch(`${BASE_URL}/pokemon-species?limit=${limit}`);
-  
+
   if (!response.ok) {
     throw new Error(`Failed to fetch Pokemon list: ${response.statusText}`);
   }
-  
+
   return response.json();
 }
 
