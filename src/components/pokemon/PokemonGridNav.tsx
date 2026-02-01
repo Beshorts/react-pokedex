@@ -5,9 +5,10 @@ import { SortByIcon } from "../icons/SortByIcon";
 import { MyButton } from "../shared/MyButton";
 
 export function PokemonGridNav() {
+
   return (
     <>
-      <nav className="flex justify-end sm:justify-between p-0 py-4 sm:p-4" aria-label="View options">
+      <nav className="flex justify-end p-0 py-4 sm:justify-between" aria-label="View options">
         <div className="flex gap-2">
           <MyButton className="hidden sm:flex" variant="primary" ariaLabel="Grid view">
             <GridIcon />
@@ -17,9 +18,9 @@ export function PokemonGridNav() {
           </MyButton>
         </div>
         <div className="hidden gap-4 items-center sm:flex">
-          <h3>Sort by:</h3>
+          <p className="text-body-md">Sort by:</p>
           <DropDown
-            label="Lowest number"
+            label={"Lowest number"}
             options={["Highest number", "Lowest number"]}
           />
         </div>

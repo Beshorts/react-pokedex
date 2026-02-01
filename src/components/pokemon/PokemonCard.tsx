@@ -13,7 +13,7 @@ export function PokemonCard({ pokemon }: PokemonCardProps) {
       to={`/pokemon/${pokemon.id}`}
       aria-label={`View details for ${formatPokemonName(pokemon.name)}`}
     >
-      <article className="group cursor-pointer rounded-xl border border-charcoal-10 bg-white p-4 transition-all hover:shadow-lg focus-within:ring-2 focus-within:ring-charcoal-50 focus-within:ring-offset-2">
+      <article className="group cursor-pointer rounded-xl border border-gray-300 bg-white p-4 transition-all hover:shadow-lg focus-within:ring-2 focus-within:ring-charcoal-50 focus-within:ring-offset-2">
         <div className="bg-charcoal-5 rounded-lg flex items-center justify-center mb-3 pt-4 pb-2 px-4">
           {pokemon.sprite ? (
             <img

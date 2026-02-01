@@ -4,7 +4,7 @@ import { PokemonGrid } from "./PokemonGrid";
 export function PokemonList() {
 
   return (
-      <div className="container mx-auto bg-white px-4">
+      <div className="container mx-auto bg-white px-0 sm:px-4">
         <PokemonGridNav />
         <main>
             <PokemonGrid />

@@ -41,7 +41,7 @@ export function BadgeType({ type }: BadgeTypeProps) {
   return (
     <div
        style={{ backgroundColor: colors.bg, color: colors.text }}
-      className={`inline-flex items-center justify-center rounded-md  px-3 py-1 text-caption font-medium leading-caption capitalize`}
+      className={`inline-flex items-center justify-center rounded-md text-caption contrast-125 font-medium leading-caption capitalize px-3 py-1`}
       aria-label={`Type: ${type}`}
     >
       {type}

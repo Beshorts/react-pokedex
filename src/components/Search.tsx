@@ -33,6 +33,7 @@ export function Search({ placeholder = "Pikachu, 25" }: SearchProps) {
         Name or number
       </label>
         <input
+          id="pokemon-search"
           type="text"
           value={query}
           onChange={handleInputChange}
@@ -42,6 +43,7 @@ export function Search({ placeholder = "Pikachu, 25" }: SearchProps) {
         />
         <button
           type="submit"
+          aria-label="submit search"
           className="absolute right-3 top-1/2 -translate-y-1/2 text-charcoal-100 sm:hidden"
         >
           <SearchIcon />
