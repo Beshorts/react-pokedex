@@ -1,6 +1,5 @@
 import {
   createContext,
-  Suspense,
   use,
   useEffect,
   useReducer,
@@ -9,7 +8,6 @@ import {
 import type { PokemonData } from "../types/pokemon";
 import { getPokemonResource } from "../services/pokemonResource";
 import { usePokemonContext } from "../hooks/hooks";
-import { LoadingSpinner } from "../components/LoadingSpinner";
 
 interface PokemonState {
   allPokemon: PokemonData[];
@@ -101,7 +99,7 @@ const PokemonContext = createContext<PokemonContextValue | undefined>(
   undefined,
 );
 
-function PokemonDataInitializer() {
+export function PokemonDataInitializer() {
   const pokemon = use(getPokemonResource());
   const { dispatch } = usePokemonContext();
 
@@ -117,10 +115,7 @@ export function PokemonProvider({ children }: { children: ReactNode }) {
 
   return (
     <PokemonContext value={{ state, dispatch }}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <PokemonDataInitializer />
         {children}
-      </Suspense>
     </PokemonContext>
   );
 }

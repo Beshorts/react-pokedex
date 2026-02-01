@@ -93,7 +93,7 @@ export function useSearchPokemon() {
 
     try {
       const lowerQuery = query.toLowerCase().trim();
-      
+
       dispatch({ type: "SET_SEARCH_QUERY", payload: lowerQuery });
 
       const queryWithoutHash = lowerQuery.replace("#", "");
@@ -148,3 +148,4 @@ export function useSearchPokemon() {
 
   return { searchPokemon, clearSearch };
 }
+

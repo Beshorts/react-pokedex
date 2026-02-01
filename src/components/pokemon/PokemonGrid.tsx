@@ -1,22 +1,17 @@
 import { PokemonCard } from './PokemonCard';
-import type { PokemonData } from '../../types/pokemon';
 import { useLoadMorePokemon, usePokemonContext } from '../../hooks/hooks';
 import { MyButton } from '../shared/MyButton';
 import { EmptyState } from '../EmptyState';
 import { LoadingSpinner } from '../LoadingSpinner';
 
-interface PokemonGridProps {
-  onPokemonClick?: (pokemon: PokemonData) => void;
-}
 
-export function PokemonGrid({ onPokemonClick }: PokemonGridProps) {
+export function PokemonGrid() {
 
     const {state} = usePokemonContext();
 
     const { loadMore } = useLoadMorePokemon();
 
     const pokemons = state.filteredPokemon.length > 0 ? state.filteredPokemon : state.allPokemon;
-
 
     if (state.isSearching) {
       return (
@@ -44,7 +39,7 @@ export function PokemonGrid({ onPokemonClick }: PokemonGridProps) {
    <>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {pokemons.map((elem) => (
-          <PokemonCard key={elem.id} pokemon={elem} onClick={onPokemonClick} />
+          <PokemonCard key={elem.id} pokemon={elem} />
         ))}
       </div>
 
