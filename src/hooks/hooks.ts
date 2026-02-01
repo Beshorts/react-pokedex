@@ -60,7 +60,6 @@ export function useLoadMorePokemon() {
     } catch (error) {
       console.error("Failed to load more Pokemon:", error);
     } finally {
-      // 2. Spegniamo lo spinner in ogni caso (successo o errore)
       dispatch({ type: "SET_IS_LOADING_MORE", payload: false });
     }
   }
@@ -148,4 +147,3 @@ export function useSearchPokemon() {
 
   return { searchPokemon, clearSearch };
 }
-

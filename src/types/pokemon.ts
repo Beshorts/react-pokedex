@@ -73,3 +73,5 @@ export interface PaginationState {
   itemsPerPage: number;
   totalItems: number;
 }
+
+export type PokemonSort = 'id-asc' | 'id-desc'
